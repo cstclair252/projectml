@@ -1,4 +1,4 @@
-<include a CircleCI status badge, here>
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/cstclair252/projectml/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/cstclair252/projectml/tree/main)
 
 ## Project Overview
 
@@ -48,3 +48,28 @@ source .devops/bin/activate
 * Setup and Configure Kubernetes locally
 * Create Flask app in Container
 * Run via kubectl
+
+## Instructions on how to run the Python scripts and web app:
+run_docker.sh - cd into the folder housing the script and run ./run_docker.sh
+upload_docker.sh - this will upload file into docker hub make sure to create your own docker hub repo.  run ./upload_docker.sh
+run_kubernetes.sh - first you will need to start minikube run minikube start.  Once started you can begin to kubernetes deployment. run ./run_kubernetes
+
+
+## PROJECT FILES DESCRIPTION:
+
+app.py - python code that execustes prediction.  Extra log file was added "prediction values:"
+Dockerfile - file that holds specs on what docker image to use and how to deploy it. copy files to workign directory /app, install packages from requirements, expose ports and command to launch container. 
+run_docker.sh - shell script that executes docker build and run parameters
+upload_docker.sh - shell script has docker path to upload docker image to the repository on dockerhub
+run_kubernetes.sh - shell script that runs kubernetes pod and sets port forward for local machine. 
+output files: 
+  docker_out - text file with output of foreground program includes new prediction value log output
+  kubernetes_out - text file with output of foreground program includes handling connection flag after make prediction was call on another terminal 
+
+
+
+
+
+
+
+
