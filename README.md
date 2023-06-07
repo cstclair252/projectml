@@ -6,6 +6,9 @@ In this project, you will apply the skills you have acquired in this course to o
 
 You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
 
+This project will use the ability of kubernetes to run the program in a containerized fashion.  This will also make it easy to scale as needed. 
+
+
 ### Project Tasks
 
 Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
@@ -45,9 +48,67 @@ source .devops/bin/activate
 ### Kubernetes Steps
 
 * Setup and Configure Docker locally
+
+install docker 
+
+https://www.docker.com
+
+download the version for you pc and install.
+
+
 * Setup and Configure Kubernetes locally
+
+Install kubernetes: 
+
+	kubectl Binary: kubectl is the command-line tool for interacting with the Kubernetes cluster. You need to download and install the kubectl binary appropriate for your operating system.
+	
+	CLI:
+		curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+		sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+		
+Install Minikube: 
+more info go here
+
+	https://minikube.sigs.k8s.io/docs/start/
+	
+follow these commands. 
+	
+	curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+	sudo install minikube-linux-amd64 /usr/local/bin/minikube
+	
+	
+	Now you have to start your cluster. 
+	
+	Cli: 
+		Minikube start
+		
+	
+	Interact with your cluster using kubectl. 
+	
+	Cli: kubectl get po
+	Cli: kubectl get pods
+
+
 * Create Flask app in Container
+
+#you can run the run_docker.sh or you can follow these commands. 
+
+docker build --tag=projectml .
+
+docker run -p 8000:80 projectml
+
+to upload use container to docker hub ./upload_docker.sh
+
+
 * Run via kubectl
+
+#you can just run the run_kubernetes.sh or here are the commands. 
+
+kubectl run projectml --image=$dockerpath --port=80 --labels=app=projectml
+
+kubectl port-forward projectml 8000:80
+
+
 
 ## Instructions on how to run the Python scripts and web app:
 run_docker.sh - cd into the folder housing the script and run ./run_docker.sh
